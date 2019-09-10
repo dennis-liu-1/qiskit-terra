@@ -347,7 +347,7 @@ def plot_state_city(rho, title="", figsize=None, color=None,
     for tick in ax2.zaxis.get_major_ticks():
         tick.label.set_fontsize(14)
     ax2.get_autoscalez_on()
-
+    
     plt.suptitle(title, fontsize=16)
     plt.tight_layout()
     plt.close(fig)
