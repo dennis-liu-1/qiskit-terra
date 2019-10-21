@@ -75,8 +75,7 @@ def plot_histogram(data, figsize=(7, 5), color=None, number_to_keep=None,
             will be no returned Figure since it is redundant.
 
     Returns:
-        matplotlib.Figure:
-            A figure for the rendered histogram, if the ``ax``
+        matplotlib.Figure: A figure for the rendered histogram, if the ``ax``
             kwarg is not set.
 
     Raises:
@@ -98,7 +97,7 @@ def plot_histogram(data, figsize=(7, 5), color=None, number_to_keep=None,
 
            backend = BasicAer.get_backend('qasm_simulator')
            job = execute(qc, backend)
-           plot_histogram(job.result().get_counts(), color='midnightblue', title="New Histogram")
+           plot_histogram(job.result().get_counts())
     """
     if not HAS_MATPLOTLIB:
         raise ImportError('Must have Matplotlib installed.')
