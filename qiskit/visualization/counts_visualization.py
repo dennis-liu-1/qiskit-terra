@@ -32,7 +32,6 @@ if HAS_MATPLOTLIB:
 
 def hamming_distance(str1, str2):
     """Calculate the Hamming distance between two bit strings
-
     Args:
         str1 (str): First string.
         str2 (str): Second string.
@@ -54,7 +53,6 @@ def plot_histogram(data, figsize=(7, 5), color=None, number_to_keep=None,
                    sort='asc', target_string=None,
                    legend=None, bar_labels=True, title=None, ax=None):
     """Plot a histogram of data.
-
     Args:
         data (list or dict): This is either a list of dictionaries or a single
             dict containing the values to represent (ex {'001': 130})
@@ -73,31 +71,26 @@ def plot_histogram(data, figsize=(7, 5), color=None, number_to_keep=None,
             the visualization output. If none is specified a new matplotlib
             Figure will be created and used. Additionally, if specified there
             will be no returned Figure since it is redundant.
-
     Returns:
-        matplotlib.Figure: A figure for the rendered histogram, if the ``ax``
+        matplotlib.Figure:
+            A figure for the rendered histogram, if the ``ax``
             kwarg is not set.
-
     Raises:
         ImportError: Matplotlib not available.
         VisualizationError: When legend is provided and the length doesn't
             match the input data.
-
     Example:
         .. jupyter-execute::
-
            from qiskit import QuantumCircuit, BasicAer, execute
            from qiskit.visualization import plot_histogram
            %matplotlib inline
-
            qc = QuantumCircuit(2, 2)
            qc.h(0)
            qc.cx(0, 1)
            qc.measure([0, 1], [0, 1])
-
            backend = BasicAer.get_backend('qasm_simulator')
            job = execute(qc, backend)
-           plot_histogram(job.result().get_counts())
+           plot_histogram(job.result().get_counts(), color='midnightblue', title="New Histogram")
     """
     if not HAS_MATPLOTLIB:
         raise ImportError('Must have Matplotlib installed.')

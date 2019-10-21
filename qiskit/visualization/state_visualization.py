@@ -59,8 +59,7 @@ if HAS_MATPLOTLIB:
 
 
 def plot_state_hinton(rho, title='', figsize=None, ax_real=None, ax_imag=None):
-    """Plot a hinton diagram for the quanum state.
-
+    """Plot a hinton diagram for the quantum state.
     Args:
         rho (ndarray): Numpy array for state vector or density matrix.
         title (str): a string that represents the plot title
@@ -77,13 +76,24 @@ def plot_state_hinton(rho, title='', figsize=None, ax_real=None, ax_imag=None):
             ax_imag only the real component plot will be generated.
             Additionally, if specified there will be no returned Figure since
             it is redundant.
-
     Returns:
-         matplotlib.Figure: The matplotlib.Figure of the visualization if
-            neither ax_real or ax_imag is set.
-
+         matplotlib.Figure:
+            The matplotlib.Figure of the visualization if
+            neither ``ax_real`` or ``ax_imag`` is set.
     Raises:
         ImportError: Requires matplotlib.
+    Example:
+        .. jupyter-execute::
+            from qiskit import QuantumCircuit, BasicAer, execute
+            from qiskit.visualization import plot_state_hinton
+            %matplotlib inline
+            qc = QuantumCircuit(2, 2)
+            qc.h(0)
+            qc.cx(0, 1)
+            qc.measure([0, 1], [0, 1])
+            backend = BasicAer.get_backend('statevector_simulator')
+            job = execute(qc, backend).result()
+            plot_state_hinton(job.get_statevector(qc), title="New Hinton Plot")
     """
     if not HAS_MATPLOTLIB:
         raise ImportError('Must have Matplotlib installed.')
@@ -161,21 +171,23 @@ def plot_state_hinton(rho, title='', figsize=None, ax_real=None, ax_imag=None):
 
 def plot_bloch_vector(bloch, title="", ax=None, figsize=None):
     """Plot the Bloch sphere.
-
     Plot a sphere, axes, the Bloch vector, and its projections onto each axis.
-
     Args:
         bloch (list[double]): array of three elements where [<x>, <y>, <z>]
         title (str): a string that represents the plot title
         ax (matplotlib.axes.Axes): An Axes to use for rendering the bloch
             sphere
-        figsize (tuple): Figure size in inches. Has no effect is passing `ax`.
-
+        figsize (tuple): Figure size in inches. Has no effect is passing ``ax``.
     Returns:
-        Figure: A matplotlib figure instance if `ax = None`.
-
+        matplotlib.Figure:
+            A matplotlib figure instance if ``ax = None``.
     Raises:
         ImportError: Requires matplotlib.
+    Example:
+        .. jupyter-execute::
+           from qiskit.visualization import plot_bloch_vector
+           %matplotlib inline
+           plot_bloch_vector([0,1,0], title="New Bloch Sphere")
     """
     if not HAS_MATPLOTLIB:
         raise ImportError('Must have Matplotlib installed.')
@@ -196,19 +208,28 @@ def plot_bloch_vector(bloch, title="", ax=None, figsize=None):
 
 def plot_bloch_multivector(rho, title='', figsize=None):
     """Plot the Bloch sphere.
-
     Plot a sphere, axes, the Bloch vector, and its projections onto each axis.
-
     Args:
         rho (ndarray): Numpy array for state vector or density matrix.
         title (str): a string that represents the plot title
         figsize (tuple): Has no effect, here for compatibility only.
-
     Returns:
-        Figure: A matplotlib figure instance.
-
+        matplotlib.Figure:
+            A matplotlib figure instance.
     Raises:
         ImportError: Requires matplotlib.
+    Example:
+        .. jupyter-execute::
+           from qiskit import QuantumCircuit, BasicAer, execute
+           from qiskit.visualization import plot_bloch_multivector
+           %matplotlib inline
+           qc = QuantumCircuit(2, 2)
+           qc.h(0)
+           qc.cx(0, 1)
+           qc.measure([0, 1], [0, 1])
+           backend = BasicAer.get_backend('statevector_simulator')
+           job = execute(qc, backend).result()
+           plot_bloch_multivector(job.get_statevector(qc), title="New Bloch Multivector")
     """
     if not HAS_MATPLOTLIB:
         raise ImportError('Must have Matplotlib installed.')
@@ -238,16 +259,14 @@ def plot_bloch_multivector(rho, title='', figsize=None):
 def plot_state_city(rho, title="", figsize=None, color=None,
                     alpha=1, ax_real=None, ax_imag=None):
     """Plot the cityscape of quantum state.
-
     Plot two 3d bar graphs (two dimensional) of the real and imaginary
     part of the density matrix rho.
-
     Args:
         rho (ndarray): Numpy array for state vector or density matrix.
         title (str): a string that represents the plot title
         figsize (tuple): Figure size in inches.
         color (list): A list of len=2 giving colors for real and
-        imaginary components of matrix elements.
+            imaginary components of matrix elements.
         alpha (float): Transparency value for bars
         ax_real (matplotlib.axes.Axes): An optional Axes object to be used for
             the visualization output. If none is specified a new matplotlib
@@ -261,14 +280,26 @@ def plot_state_city(rho, title="", figsize=None, color=None,
             ax_imag only the real component plot will be generated.
             Additionally, if specified there will be no returned Figure since
             it is redundant.
-
     Returns:
-         matplotlib.Figure: The matplotlib.Figure of the visualization if the
-             ``ax_real`` and ``ax_imag`` kwargs are not set
-
+        matplotlib.Figure:
+            The matplotlib.Figure of the visualization if the
+            ``ax_real`` and ``ax_imag`` kwargs are not set
     Raises:
         ImportError: Requires matplotlib.
         ValueError: When 'color' is not a list of len=2.
+    Example:
+        .. jupyter-execute::
+           from qiskit import QuantumCircuit, BasicAer, execute
+           from qiskit.visualization import plot_state_city
+           %matplotlib inline
+           qc = QuantumCircuit(2, 2)
+           qc.h(0)
+           qc.cx(0, 1)
+           qc.measure([0, 1], [0, 1])
+           backend = BasicAer.get_backend('statevector_simulator')
+           job = execute(qc, backend).result()
+           plot_state_city(job.get_statevector(qc), color=['midnightblue', 'midnightblue'],
+                title="New State City")
     """
     if not HAS_MATPLOTLIB:
         raise ImportError('Must have Matplotlib installed.')
@@ -414,9 +445,7 @@ def plot_state_city(rho, title="", figsize=None, color=None,
 
 def plot_state_paulivec(rho, title="", figsize=None, color=None, ax=None):
     """Plot the paulivec representation of a quantum state.
-
     Plot a bargraph of the mixed state rho over the pauli matrices
-
     Args:
         rho (ndarray): Numpy array for state vector or density matrix
         title (str): a string that represents the plot title
@@ -426,12 +455,25 @@ def plot_state_paulivec(rho, title="", figsize=None, color=None, ax=None):
             the visualization output. If none is specified a new matplotlib
             Figure will be created and used. Additionally, if specified there
             will be no returned Figure since it is redundant.
-
     Returns:
-         matplotlib.Figure: The matplotlib.Figure of the visualization if the
-         ``ax`` kwarg is not set
+         matplotlib.Figure:
+            The matplotlib.Figure of the visualization if the
+            ``ax`` kwarg is not set
     Raises:
         ImportError: Requires matplotlib.
+    Example:
+        .. jupyter-execute::
+           from qiskit import QuantumCircuit, BasicAer, execute
+           from qiskit.visualization import plot_state_paulivec
+           %matplotlib inline
+           qc = QuantumCircuit(2, 2)
+           qc.h(0)
+           qc.cx(0, 1)
+           qc.measure([0, 1], [0, 1])
+           backend = BasicAer.get_backend('statevector_simulator')
+           job = execute(qc, backend).result()
+           plot_state_paulivec(job.get_statevector(qc), color='midnightblue',
+                title="New PauliVec plot")
     """
     if not HAS_MATPLOTLIB:
         raise ImportError('Must have Matplotlib installed.')
@@ -477,11 +519,9 @@ def plot_state_paulivec(rho, title="", figsize=None, color=None, ax=None):
 
 def n_choose_k(n, k):
     """Return the number of combinations for n choose k.
-
     Args:
         n (int): the total number of options .
         k (int): The number of elements.
-
     Returns:
         int: returns the binomial coefficient
     """
@@ -494,15 +534,12 @@ def n_choose_k(n, k):
 
 def lex_index(n, k, lst):
     """Return  the lex index of a combination..
-
     Args:
         n (int): the total number of options .
         k (int): The number of elements.
         lst (list): list
-
     Returns:
         int: returns int index for lex order
-
     Raises:
         VisualizationError: if length of list is not equal to k
     """
@@ -525,7 +562,6 @@ def bit_string_index(s):
 
 def phase_to_rgb(complex_number):
     """Map a phase of a complexnumber to a color in (r,g,b).
-
     complex_number is phase is first mapped to angle in the range
     [0, 2pi] and then to the HSL color wheel
     """
@@ -539,21 +575,31 @@ def plot_state_qsphere(rho, figsize=None, ax=None):
     Here, the size of the points is proportional to the probability
     of the corresponding term in the state and the color represents
     the phase.
-
     Args:
-        rho (ndarray): State vector or density matrix representation.
-        of quantum state.
+        rho (ndarray): State vector or density matrix representation
+            of quantum state.
         figsize (tuple): Figure size in inches.
         ax (matplotlib.axes.Axes): An optional Axes object to be used for
             the visualization output. If none is specified a new matplotlib
             Figure will be created and used. Additionally, if specified there
             will be no returned Figure since it is redundant.
-
     Returns:
-        Figure: A matplotlib figure instance if the ``ax`` kwag is not set
-
+        matplotlib.Figure:
+            A matplotlib figure instance if the ``ax`` kwag is not set
     Raises:
         ImportError: Requires matplotlib.
+    Example:
+        .. jupyter-execute::
+           from qiskit import QuantumCircuit, BasicAer, execute
+           from qiskit.visualization import plot_state_qsphere
+           %matplotlib inline
+           qc = QuantumCircuit(2, 2)
+           qc.h(0)
+           qc.cx(0, 1)
+           qc.measure([0, 1], [0, 1])
+           backend = BasicAer.get_backend('statevector_simulator')
+           job = execute(qc, backend).result()
+           plot_state_qsphere(job.get_statevector(qc))
     """
     if not HAS_MATPLOTLIB:
         raise ImportError('Must have Matplotlib installed.')
@@ -719,10 +765,8 @@ def plot_state_qsphere(rho, figsize=None, ax=None):
 
 def generate_facecolors(x, y, z, dx, dy, dz, color):
     """Generates shaded facecolors for shaded bars.
-
     This is here to work around a Matplotlib bug
     where alpha does not work in Bar3D.
-
     Args:
         x (array_like): The x- coordinates of the anchor point of the bars.
         y (array_like): The y- coordinates of the anchor point of the bars.
@@ -807,14 +851,12 @@ def generate_facecolors(x, y, z, dx, dy, dz, color):
 
 def _generate_normals(polygons):
     """Takes a list of polygons and return an array of their normals.
-
     Normals point towards the viewer for a face with its vertices in
     counterclockwise order, following the right hand rule.
     Uses three points equally spaced around the polygon.
     This normal of course might not make sense for polygons with more than
     three points not lying in a plane, but it's a plausible and fast
     approximation.
-
     Args:
         polygons (list): list of (M_i, 3) array_like, or (..., M, 3) array_like
             A sequence of polygons to compute normals for, which can have
